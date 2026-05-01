@@ -37,7 +37,7 @@ No primeiro boot, o backend automaticamente:
 - Carrega itens de exemplo no portfólio se a tabela estiver vazia (`seed_portfolio`).
 - Em modo `DJANGO_DEBUG=true`, também roda `makemigrations` para refletir mudanças nos models.
 
-> **Para o fluxo de desenvolvimento** (gerar migrações ao alterar models, fazer seed manual, subir em produção, troubleshooting), veja o **[Guia de Desenvolvimento](./DEVELOPMENT.md)**.
+> **Para o fluxo de desenvolvimento** (gerar migrações ao alterar models, fazer seed manual, subir em produção, troubleshooting), veja o **[Guia de Desenvolvimento](docs/DEVELOPMENT.md)**.
 
 ## Endpoints
 
@@ -75,4 +75,4 @@ Admin (protegidas, redireciona para `/admin/login` sem token):
 
 ## Arquitetura
 
-Mais informações em [Arquitetura](./architecture/README.md)
+Mais informações em [Arquitetura](docs/architecture/README.md)

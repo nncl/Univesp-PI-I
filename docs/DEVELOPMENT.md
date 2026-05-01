@@ -1,6 +1,6 @@
 # Guia de Desenvolvimento
 
-Comandos e fluxos do dia a dia. Para a visão geral do projeto, veja o [README](./README.md).
+Comandos e fluxos do dia a dia. Para a visão geral do projeto, veja o [README](../README.md).
 
 ## Sumário
 

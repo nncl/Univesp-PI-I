@@ -1,0 +1,18 @@
+services:
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+      target: prod
+    environment:
+      DJANGO_DEBUG: "false"
+    volumes: []
+    command: ["sh", "/app/entrypoint.sh"]
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+      target: prod
+    volumes: []
+    command: ["node", "server.js"]

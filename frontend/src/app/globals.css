@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+  html, body {
+    background: theme("colors.paper.DEFAULT");
+    color: theme("colors.ink.DEFAULT");
+  }
+  body {
+    @apply font-sans antialiased;
+  }
+  h1, h2, h3, h4 {
+    @apply font-serif;
+  }
+}
+
+/* react-day-picker monochrome theming */
+.rdp {
+  --rdp-cell-size: 40px;
+  --rdp-accent-color: #0a0a0a;
+  --rdp-background-color: #f4f3f1;
+  --rdp-outline: 1px solid #0a0a0a;
+  margin: 0;
+}
+.rdp-day_selected, .rdp-day_selected:focus, .rdp-day_selected:hover {
+  background-color: #0a0a0a !important;
+  color: #fafaf9 !important;
+}
+.rdp-day_today {
+  font-weight: 600;
+  text-decoration: underline;
+}
+.rdp-day_disabled {
+  color: #b0b0b0 !important;
+}

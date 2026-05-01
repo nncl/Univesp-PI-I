@@ -113,3 +113,34 @@ export const api = {
     request<ContactRequest>("/contact/", { method: "POST", body: payload }),
 };
 
+// Auth
+export const auth = {
+  login: (username: string, password: string) =>
+    request<AuthTokens>("/auth/login/", { method: "POST", body: { username, password } }),
+  logout: (refresh: string) =>
+    request<void>("/auth/logout/", { method: "POST", body: { refresh }, auth: true }),
+  me: () => request<AuthUser>("/auth/me/", { auth: true }),
+};
+
+// Admin
+export const adminApi = {
+  listPortfolio: () => request<Paginated<PortfolioItem>>("/admin/portfolio/", { auth: true }),
+  getPortfolio: (id: number | string) =>
+    request<PortfolioItem>(`/admin/portfolio/${id}/`, { auth: true }),
+  createPortfolio: (payload: { title: string; description: string; image_url: string }) =>
+    request<PortfolioItem>("/admin/portfolio/", { method: "POST", body: payload, auth: true }),
+  updatePortfolio: (
+    id: number | string,
+    payload: { title: string; description: string; image_url: string },
+  ) =>
+    request<PortfolioItem>(`/admin/portfolio/${id}/`, {
+      method: "PUT",
+      body: payload,
+      auth: true,
+    }),
+  deletePortfolio: (id: number | string) =>
+    request<void>(`/admin/portfolio/${id}/`, { method: "DELETE", auth: true }),
+  listContacts: () => request<Paginated<ContactRequest>>("/admin/contacts/", { auth: true }),
+  getContact: (id: number | string) =>
+    request<ContactRequest>(`/admin/contacts/${id}/`, { auth: true }),
+};

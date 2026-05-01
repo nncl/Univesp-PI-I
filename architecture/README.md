@@ -3,11 +3,11 @@
 ### System Design
 
 <p align="center">
-  <img src="architecture/tattoo_platform_architecture.svg" />
+  <img src="./tattoo_platform_architecture.svg" />
 </p>
 
 ### Diagrama ER
 
 <p align="center">
-  <img src="architecture/er-diagram.svg" />
+  <img src="./er-diagram.svg" />
 </p>

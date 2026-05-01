@@ -72,3 +72,7 @@ Admin (protegidas, redireciona para `/admin/login` sem token):
 - Sem contas de cliente — contato apenas via formulário.
 - "Quem sou eu" é estático.
 - Idioma: pt-BR.
+
+## Arquitetura
+
+Mais informações em [Arquitetura](./architecture/README.md)

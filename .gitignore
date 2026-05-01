@@ -33,3 +33,6 @@ yarn-error.log*
 
 # Docker
 *.pid
+
+# Extras
+settings.local.json

@@ -10,10 +10,31 @@ const serif = Cormorant_Garamond({
   display: "swap",
 });
 
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  "http://yara-tattoo-alb-1141468679.sa-east-1.elb.amazonaws.com";
+
+const TITLE = "Yara Oliveira — Tatuadora em Campinas/SP";
+const DESCRIPTION =
+  "Portfólio e agenda de orçamentos da tatuadora Yara Oliveira, baseada em Campinas/SP.";
+
 export const metadata: Metadata = {
-  title: "Yara Oliveira — Tatuadora em Campinas/SP",
-  description:
-    "Portfólio e agenda de orçamentos da tatuadora Yara Oliveira, baseada em Campinas/SP.",
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    url: "/",
+    siteName: "Yara Oliveira Tattoo",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -16,6 +16,10 @@ CMD ["npm", "run", "dev"]
 # --- builder (prod) ---
 FROM node:20-alpine AS builder
 WORKDIR /app
+# NEXT_PUBLIC_* vars are inlined into the client bundle at build time, so the
+# value the browser sees is whatever was present here when `next build` ran.
+ARG NEXT_PUBLIC_API_BASE_URL
+ENV NEXT_PUBLIC_API_BASE_URL=${NEXT_PUBLIC_API_BASE_URL}
 ENV NEXT_TELEMETRY_DISABLED=1
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .

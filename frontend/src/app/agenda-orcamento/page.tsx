@@ -16,7 +16,7 @@ export default function AgendaPage() {
   const [when, setWhen] = useState<Date | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -41,7 +41,7 @@ export default function AgendaPage() {
 
     setSubmitting(true);
     try {
-      await api.createContact({
+      const result = await api.createContact({
         name: name.trim(),
         phone: phone.trim(),
         tattoo_size: tattooSize.trim() || undefined,
@@ -49,7 +49,7 @@ export default function AgendaPage() {
         suggested_date: when.toISOString(),
         email: email.trim() || undefined,
       });
-      setSuccess(true);
+      setSuccessMessage(result.message);
     } catch (err) {
       if (err instanceof ApiError) {
         setError(err.message);
@@ -61,15 +61,13 @@ export default function AgendaPage() {
     }
   }
 
-  if (success) {
+  if (successMessage) {
     return (
       <>
         <Header />
         <main className="mx-auto max-w-3xl px-6 py-32 text-center">
           <h1 className="font-serif text-4xl md:text-5xl">Solicitação enviada</h1>
-          <p className="mx-auto mt-4 max-w-xl text-ink/70">
-            Obrigada! Entraremos em contato em breve para confirmar sua data e detalhes.
-          </p>
+          <p className="mx-auto mt-4 max-w-xl text-ink/70">{successMessage}</p>
         </main>
         <Footer />
       </>

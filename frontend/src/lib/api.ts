@@ -110,7 +110,7 @@ export const api = {
   listPortfolio: () => request<Paginated<PortfolioItem>>("/portfolio/"),
   getPortfolioItem: (id: number | string) => request<PortfolioItem>(`/portfolio/${id}/`),
   createContact: (payload: ContactRequestPayload) =>
-    request<ContactRequest>("/contact/", { method: "POST", body: payload }),
+    request<{ message: string }>("/contact/", { method: "POST", body: payload }),
 };
 
 // Auth

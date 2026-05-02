@@ -15,7 +15,7 @@ export default function AboutPage() {
           <div className="aspect-[4/5] w-full overflow-hidden border border-ink/10 bg-paper-warm">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/placeholder-about.jpg"
+              src="https://images.unsplash.com/photo-1586243287039-23f4c8e2e7ab?w=1000&q=80"
               alt="Yara Oliveira no estúdio"
               className="h-full w-full object-cover"
             />

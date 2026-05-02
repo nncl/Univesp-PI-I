@@ -50,7 +50,7 @@ export default async function HomePage() {
             <div className="aspect-[4/5] w-full overflow-hidden border border-ink/10 bg-paper-warm">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/placeholder-artist.jpg"
+                src="https://images.unsplash.com/photo-1612271974453-15e684c6586b?w=1000&q=80"
                 alt="Yara Oliveira"
                 className="h-full w-full object-cover"
               />

@@ -5,7 +5,7 @@
     "fields": {
       "title": "Floral minimalista",
       "description": "Linhas finas e composição botânica autoral. Tatuagem feita em sessão única, com foco em preservar o vazio do papel — e da pele.",
-      "image_url": "https://picsum.photos/seed/yara-floral/800/1000",
+      "image_url": "https://images.unsplash.com/photo-1598371839696-5c5bb00bdc28?w=800&q=80",
       "created_at": "2024-11-10T14:00:00Z",
       "updated_at": "2024-11-10T14:00:00Z"
     }
@@ -16,7 +16,7 @@
     "fields": {
       "title": "Geométrica fineline",
       "description": "Estudo geométrico em traço fino, com sombreado pontilhado discreto. Composição inspirada em desenhos arquitetônicos.",
-      "image_url": "https://picsum.photos/seed/yara-geometric/800/1000",
+      "image_url": "https://images.unsplash.com/photo-1568515045052-f9a854d70bfd?w=800&q=80",
       "created_at": "2024-12-02T16:30:00Z",
       "updated_at": "2024-12-02T16:30:00Z"
     }
@@ -27,7 +27,7 @@
     "fields": {
       "title": "Lettering autoral",
       "description": "Caligrafia desenhada à mão, adaptada para a curvatura do braço. Cada letra foi redesenhada para o cliente.",
-      "image_url": "https://picsum.photos/seed/yara-lettering/800/1000",
+      "image_url": "https://images.unsplash.com/photo-1542727365-19732a80dcfd?w=800&q=80",
       "created_at": "2025-01-18T11:15:00Z",
       "updated_at": "2025-01-18T11:15:00Z"
     }
@@ -38,7 +38,7 @@
     "fields": {
       "title": "Black work — fragmento",
       "description": "Fragmento de uma peça maior em blackwork, com áreas sólidas contrastando com vazios precisos.",
-      "image_url": "https://picsum.photos/seed/yara-blackwork/800/1000",
+      "image_url": "https://images.unsplash.com/photo-1597852075234-fd721ac361d3?w=800&q=80",
       "created_at": "2025-02-22T09:45:00Z",
       "updated_at": "2025-02-22T09:45:00Z"
     }

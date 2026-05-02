@@ -36,3 +36,21 @@ yarn-error.log*
 
 # Extras
 settings.local.json
+
+# Terraform
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+*.tfplan
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform variable files (commit only the .example)
+*.tfvars
+*.tfvars.json
+!*.tfvars.example

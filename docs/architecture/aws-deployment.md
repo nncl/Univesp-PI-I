@@ -130,13 +130,9 @@ push main → GitHub Actions
 
 O NAT Gateway e o ALB respondem por mais da metade do custo. Para um projeto acadêmico é prudente rodar `terraform destroy` entre apresentações.
 
-## Observações
+## TBD/TODO
 
 - **Sem TLS**: o ALB fala HTTP puro. Habilitar HTTPS exige um certificado no ACM e um listener `:443` — fora do escopo do MVP, mas é trivial de adicionar.
 - **Sem domínio próprio**: a aplicação é acessada pelo DNS do ALB. Trocar por um domínio passa por Route 53 (ou outro DNS) apontando para o ALB.
 - **Single-AZ no RDS**: `multi_az = false` por custo. Falha de AZ derruba o banco; aceitável para escopo acadêmico.
 - **State do Terraform local**: o `terraform.tfstate` vive na máquina do desenvolvedor. Para colaboração, mover para um backend S3 + DynamoDB lock seria o próximo passo.
-
-## Para apresentação
-
-O diagrama Mermaid pode ser exportado como SVG/PNG colando o bloco em <https://mermaid.live>. O resultado mantém a mesma estrutura, pronto para slides.

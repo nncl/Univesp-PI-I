@@ -1,0 +1,22 @@
+# Copy to terraform.tfvars and fill in. terraform.tfvars is gitignored.
+
+aws_region   = "sa-east-1"
+project_name = "yara-tattoo"
+
+# GitHub OIDC trust — only this repo+branch can assume the deploy role.
+github_owner  = "nncl"
+github_repo   = "Univesp-PI-I"
+github_branch = "main"
+
+# Optional overrides (defaults shown)
+# vpc_cidr             = "10.0.0.0/16"
+# db_instance_class    = "db.t3.micro"
+# db_allocated_storage = 20
+# db_name              = "tattoo"
+# db_username          = "tattoo"
+# ecs_task_cpu         = 256
+# ecs_task_memory      = 512
+# ecs_desired_count    = 1
+# backend_image_tag    = "latest"
+# frontend_image_tag   = "latest"
+# django_admin_email   = "admin@example.com"

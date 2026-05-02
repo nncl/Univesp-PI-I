@@ -57,6 +57,8 @@ flowchart TB
     ECS -.pull image.-> ECR
 ```
 
+![aws-deployment.png](aws-deployment.png)
+
 ## Produtos e serviços AWS
 
 | Serviço | Para quê | Configuração relevante |

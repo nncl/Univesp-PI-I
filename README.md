@@ -2,6 +2,10 @@
 
 Portfólio público + agenda de orçamento + área administrativa para a tatuadora **Yara Oliveira** (Campinas/SP).
 
+## Objetivo
+
+Esse projeto tem como objetivo permitir que clientes do estúdio Yara Oliveira visualizem seu portfólio e possam agendar um primeiro bate papo sobre o que desejam tatuar.
+
 Stack: **Django 5 + DRF + MySQL 8** (backend) e **Next.js 14 + TypeScript + Tailwind** (frontend), orquestrados com **Docker Compose**.
 
 ## Estrutura

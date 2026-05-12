@@ -139,11 +139,13 @@ jobs:
         env:
           REGISTRY: ${{ steps.ecr.outputs.registry }}
           NEXT_PUBLIC_API_BASE_URL: ${{ vars.NEXT_PUBLIC_API_BASE_URL }}
+          NEXT_PUBLIC_GA_MEASUREMENT_ID: ${{ vars.NEXT_PUBLIC_GA_MEASUREMENT_ID }}
         run: |
           IMAGE="${REGISTRY}/${ECR_FRONTEND}"
           docker build \
             --target prod \
             --build-arg NEXT_PUBLIC_API_BASE_URL="${NEXT_PUBLIC_API_BASE_URL}" \
+            --build-arg NEXT_PUBLIC_GA_MEASUREMENT_ID="${NEXT_PUBLIC_GA_MEASUREMENT_ID}" \
             -t "${IMAGE}:latest" \
             -t "${IMAGE}:${{ github.sha }}" \
             ./frontend

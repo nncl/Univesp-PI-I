@@ -73,6 +73,14 @@ DATABASES = {
         "OPTIONS": {
             "charset": "utf8mb4",
             "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
+            # Azure Database for MySQL is reached over the public internet (no
+            # VPC there), so TLS is mandatory. RDS stays on a private subnet
+            # and doesn't need this.
+            **(
+                {"ssl_mode": "REQUIRED"}
+                if os.environ.get("DATABASE_SSL_REQUIRED", "false").lower() == "true"
+                else {}
+            ),
         },
     }
 }

@@ -196,13 +196,16 @@ resource "azurerm_container_app" "frontend" {
       cpu    = var.container_cpu
       memory = var.container_memory
 
-      # Apps in the same Container Apps Environment can reach each other by
-      # container app name over the environment's internal network — using
-      # the public FQDN instead (round-tripping out to the internet and back
-      # in) was hanging indefinitely on every request in this environment.
+      # This Container Apps Environment is the "Express" SKU, which doesn't
+      # resolve plain app-name DNS (confirmed: "bad address") and doesn't
+      # properly route the app.internal.<domain> convention either (resolves,
+      # but 404s — no app-specific routing). The public HTTPS FQDN is the one
+      # URL that's confirmed to actually work; the hang we saw earlier turned
+      # out to be caused entirely by the HOSTNAME-binding issue below (which
+      # only affects *inbound* connections), not this outbound call.
       env {
         name  = "INTERNAL_API_BASE_URL"
-        value = "http://${local.backend_app_name}/api"
+        value = "${local.backend_url}/api"
       }
       # Next.js standalone's server.js binds to $HOSTNAME if set, defaulting
       # to loopback in some environments — Azure's own container logs showed

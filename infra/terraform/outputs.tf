@@ -1,52 +1,51 @@
-output "alb_dns_name" {
-  value       = aws_lb.main.dns_name
-  description = "Public ALB DNS name."
+output "backend_url" {
+  value       = local.backend_url
+  description = "Public backend URL. Set this as the NEXT_PUBLIC_API_BASE_URL GitHub Actions repo variable."
 }
 
-output "alb_url" {
-  value       = "http://${aws_lb.main.dns_name}"
+output "frontend_url" {
+  value       = local.frontend_url
   description = "Public URL of the application."
 }
 
-output "ecr_backend_repository_url" {
-  value       = aws_ecr_repository.backend.repository_url
-  description = "Backend ECR repository URL."
+output "resource_group_name" {
+  value = azurerm_resource_group.main.name
 }
 
-output "ecr_frontend_repository_url" {
-  value       = aws_ecr_repository.frontend.repository_url
-  description = "Frontend ECR repository URL."
+output "container_app_environment_name" {
+  value = azurerm_container_app_environment.main.name
 }
 
-output "ecs_cluster_name" {
-  value = aws_ecs_cluster.main.name
+output "backend_container_app_name" {
+  value = azurerm_container_app.backend.name
 }
 
-output "ecs_backend_service_name" {
-  value = aws_ecs_service.backend.name
+output "frontend_container_app_name" {
+  value = azurerm_container_app.frontend.name
 }
 
-output "ecs_frontend_service_name" {
-  value = aws_ecs_service.frontend.name
+output "mysql_fqdn" {
+  value       = azurerm_mysql_flexible_server.main.fqdn
+  description = "MySQL Flexible Server hostname (for connecting a client directly, if my_ip_address is set)."
 }
 
-output "rds_endpoint" {
-  value       = aws_db_instance.main.endpoint
-  description = "RDS endpoint (host:port)."
+output "mysql_admin_password" {
+  value       = random_password.db.result
+  description = "Auto-generated MySQL admin password."
   sensitive   = true
 }
 
-output "rds_master_user_secret_arn" {
-  value       = aws_db_instance.main.master_user_secret[0].secret_arn
-  description = "Secrets Manager ARN holding the RDS-managed master password."
+output "azure_client_id" {
+  value       = azurerm_user_assigned_identity.github_actions.client_id
+  description = "Set as the AZURE_CLIENT_ID GitHub Actions repo variable."
 }
 
-output "backend_secret_arn" {
-  value       = aws_secretsmanager_secret.backend.arn
-  description = "Secrets Manager ARN holding Django env vars (fill values manually after first apply)."
+output "azure_tenant_id" {
+  value       = data.azurerm_client_config.current.tenant_id
+  description = "Set as the AZURE_TENANT_ID GitHub Actions repo variable."
 }
 
-output "github_actions_role_arn" {
-  value       = aws_iam_role.github_actions.arn
-  description = "Role ARN to set as the AWS_DEPLOY_ROLE_ARN GitHub Actions variable."
+output "azure_subscription_id" {
+  value       = data.azurerm_client_config.current.subscription_id
+  description = "Set as the AZURE_SUBSCRIPTION_ID GitHub Actions repo variable."
 }

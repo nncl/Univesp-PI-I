@@ -125,6 +125,10 @@ resource "azurerm_container_app" "backend" {
         value = var.django_admin_email
       }
       env {
+        name  = "CSRF_TRUSTED_ORIGINS"
+        value = local.backend_url
+      }
+      env {
         name        = "DJANGO_SECRET_KEY"
         secret_name = "django-secret-key"
       }

@@ -13,6 +13,17 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "dev-insecure-key-change-me")
 DEBUG = os.environ.get("DJANGO_DEBUG", "false").lower() == "true"
 ALLOWED_HOSTS = _csv("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1")
 
+# Azure Container Apps (and most PaaS ingress layers) terminate TLS and
+# forward plain HTTP to the container, setting X-Forwarded-Proto to say so.
+# Without this, Django thinks every request is HTTP even when the browser
+# used HTTPS, which breaks the CSRF Origin check on any form POST (e.g. the
+# admin login) since request.scheme wouldn't match the browser's Origin
+# header. Harmless when there's no such proxy (e.g. plain-HTTP ALB): the
+# header is simply absent and request.is_secure() stays false.
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+CSRF_TRUSTED_ORIGINS = _csv("CSRF_TRUSTED_ORIGINS", "")
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",

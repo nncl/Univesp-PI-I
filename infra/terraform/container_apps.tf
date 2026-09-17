@@ -192,9 +192,22 @@ resource "azurerm_container_app" "frontend" {
       cpu    = var.container_cpu
       memory = var.container_memory
 
+      # Apps in the same Container Apps Environment can reach each other by
+      # container app name over the environment's internal network — using
+      # the public FQDN instead (round-tripping out to the internet and back
+      # in) was hanging indefinitely on every request in this environment.
       env {
         name  = "INTERNAL_API_BASE_URL"
-        value = "${local.backend_url}/api"
+        value = "http://${local.backend_app_name}/api"
+      }
+      # Next.js standalone's server.js binds to $HOSTNAME if set, defaulting
+      # to loopback in some environments — Azure's own container logs showed
+      # "Network: http://127.0.0.1:3000" here, vs a real container IP when
+      # the same image ran locally, which would make it unreachable from the
+      # platform's ingress despite the process itself being up and healthy.
+      env {
+        name  = "HOSTNAME"
+        value = "0.0.0.0"
       }
     }
   }

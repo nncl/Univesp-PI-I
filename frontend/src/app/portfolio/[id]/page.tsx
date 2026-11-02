@@ -18,15 +18,11 @@ export default async function PortfolioDetail({ params }: Params) {
   return (
     <>
       <Header />
-      <main>
+      <main id="conteudo" tabIndex={-1}>
         <section className="border-b border-ink/10">
           <div className="aspect-[16/9] w-full overflow-hidden bg-ink/5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={item.image_url}
-              alt={item.title}
-              className="h-full w-full object-cover"
-            />
+            <img src={item.image_url} alt="" className="h-full w-full object-cover" />
           </div>
         </section>
 

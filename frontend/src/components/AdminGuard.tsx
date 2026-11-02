@@ -25,7 +25,7 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
 
   if (!ready) {
     return (
-      <div className="flex min-h-[40vh] items-center justify-center text-sm text-ink/60">
+      <div role="status" className="flex min-h-[40vh] items-center justify-center text-sm text-ink/60">
         Verificando sessão…
       </div>
     );

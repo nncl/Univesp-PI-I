@@ -24,11 +24,11 @@ export default function AdminContactsList() {
   return (
     <AdminGuard>
       <AdminNav />
-      <main className="mx-auto max-w-6xl px-6 py-12">
+      <main id="conteudo" tabIndex={-1} className="mx-auto max-w-6xl px-6 py-12">
         <h1 className="mb-10 font-serif text-3xl">Solicitações de orçamento</h1>
 
-        {loading && <p className="text-ink/60">Carregando…</p>}
-        {error && <p className="text-red-700">{error}</p>}
+        {loading && <p role="status" className="text-ink/60">Carregando…</p>}
+        {error && <p role="alert" className="text-red-700">{error}</p>}
 
         {!loading && items.length === 0 && (
           <p className="text-ink/60">Nenhuma solicitação recebida ainda.</p>
@@ -48,7 +48,7 @@ export default function AdminContactsList() {
                 </div>
                 <div className="text-right text-sm">
                   <p className="text-ink/80">{formatDateTimeBR(c.suggested_date)}</p>
-                  <p className="text-ink/50">recebido em {formatDateTimeBR(c.created_at)}</p>
+                  <p className="text-ink/70">recebido em {formatDateTimeBR(c.created_at)}</p>
                 </div>
               </Link>
             ))}

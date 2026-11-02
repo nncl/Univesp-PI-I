@@ -41,7 +41,7 @@ export default function AdminPortfolioList() {
   return (
     <AdminGuard>
       <AdminNav />
-      <main className="mx-auto max-w-6xl px-6 py-12">
+      <main id="conteudo" tabIndex={-1} className="mx-auto max-w-6xl px-6 py-12">
         <div className="mb-10 flex items-end justify-between">
           <h1 className="font-serif text-3xl">Portfólio</h1>
           <Link
@@ -52,8 +52,8 @@ export default function AdminPortfolioList() {
           </Link>
         </div>
 
-        {loading && <p className="text-ink/60">Carregando…</p>}
-        {error && <p className="text-red-700">{error}</p>}
+        {loading && <p role="status" className="text-ink/60">Carregando…</p>}
+        {error && <p role="alert" className="text-red-700">{error}</p>}
 
         {!loading && items.length === 0 && (
           <p className="text-ink/60">Nenhum trabalho cadastrado.</p>
@@ -80,14 +80,14 @@ export default function AdminPortfolioList() {
                     href={`/admin/portfolio/${item.id}/edit`}
                     className="border border-ink/30 px-3 py-1 text-xs uppercase tracking-widest hover:border-ink"
                   >
-                    Editar
+                    Editar<span className="sr-only"> {item.title}</span>
                   </Link>
                   <button
                     type="button"
                     onClick={() => handleDelete(item.id)}
                     className="border border-red-700 px-3 py-1 text-xs uppercase tracking-widest text-red-700 hover:bg-red-700 hover:text-paper"
                   >
-                    Excluir
+                    Excluir<span className="sr-only"> {item.title}</span>
                   </button>
                 </div>
               </div>

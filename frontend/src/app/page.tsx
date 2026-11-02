@@ -20,7 +20,7 @@ export default async function HomePage() {
   return (
     <>
       <Header />
-      <main>
+      <main id="conteudo" tabIndex={-1}>
         {/* hero */}
         <section className="border-b border-ink/10">
           <div className="mx-auto grid max-w-6xl gap-12 px-6 py-24 md:grid-cols-2 md:items-center md:py-32">

@@ -12,7 +12,7 @@ export default function AdminPortfolioNew() {
   return (
     <AdminGuard>
       <AdminNav />
-      <main className="mx-auto max-w-6xl px-6 py-12">
+      <main id="conteudo" tabIndex={-1} className="mx-auto max-w-6xl px-6 py-12">
         <h1 className="mb-10 font-serif text-3xl">Novo trabalho</h1>
         <PortfolioForm
           submitLabel="Criar"

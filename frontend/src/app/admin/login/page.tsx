@@ -28,7 +28,7 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center px-6">
+    <main id="conteudo" tabIndex={-1} className="flex min-h-screen items-center justify-center px-6">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-sm space-y-6 border border-ink/10 bg-paper-warm p-8"
@@ -38,26 +38,38 @@ export default function AdminLoginPage() {
           <h1 className="font-serif text-3xl">Entrar</h1>
         </header>
         <div className="space-y-1">
-          <label className="text-xs uppercase tracking-widest text-ink/60">Usuário</label>
+          <label className="text-xs uppercase tracking-widest text-ink/60" htmlFor="login-username">
+            Usuário
+          </label>
           <input
+            id="login-username"
+            required
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className="w-full border border-ink/20 bg-paper px-3 py-2 outline-none focus:border-ink"
+            className="w-full border border-ink/20 bg-paper px-3 py-2 focus:border-ink"
             autoComplete="username"
           />
         </div>
         <div className="space-y-1">
-          <label className="text-xs uppercase tracking-widest text-ink/60">Senha</label>
+          <label className="text-xs uppercase tracking-widest text-ink/60" htmlFor="login-password">
+            Senha
+          </label>
           <input
+            id="login-password"
+            required
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full border border-ink/20 bg-paper px-3 py-2 outline-none focus:border-ink"
+            className="w-full border border-ink/20 bg-paper px-3 py-2 focus:border-ink"
             autoComplete="current-password"
           />
         </div>
-        {error && <p className="text-sm text-red-700">{error}</p>}
+        {error && (
+          <p role="alert" className="text-sm text-red-700">
+            {error}
+          </p>
+        )}
         <button
           type="submit"
           disabled={loading}

@@ -23,10 +23,10 @@ export default function AdminPortfolioEdit({ params }: { params: { id: string } 
   return (
     <AdminGuard>
       <AdminNav />
-      <main className="mx-auto max-w-6xl px-6 py-12">
+      <main id="conteudo" tabIndex={-1} className="mx-auto max-w-6xl px-6 py-12">
         <h1 className="mb-10 font-serif text-3xl">Editar trabalho</h1>
-        {error && <p className="text-red-700">{error}</p>}
-        {!item && !error && <p className="text-ink/60">Carregando…</p>}
+        {error && <p role="alert" className="text-red-700">{error}</p>}
+        {!item && !error && <p role="status" className="text-ink/60">Carregando…</p>}
         {item && (
           <PortfolioForm
             initial={{

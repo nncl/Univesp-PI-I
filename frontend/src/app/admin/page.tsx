@@ -18,7 +18,7 @@ export default function AdminDashboard() {
   return (
     <AdminGuard>
       <AdminNav />
-      <main className="mx-auto max-w-6xl px-6 py-12">
+      <main id="conteudo" tabIndex={-1} className="mx-auto max-w-6xl px-6 py-12">
         <h1 className="mb-10 font-serif text-3xl">Painel</h1>
         <div className="grid gap-6 md:grid-cols-2">
           <Link

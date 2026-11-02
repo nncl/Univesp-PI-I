@@ -16,6 +16,31 @@
   h1, h2, h3, h4 {
     @apply font-serif;
   }
+
+  /* Visible keyboard focus everywhere (WCAG 2.4.7). */
+  :focus-visible {
+    outline: 2px solid theme("colors.ink.DEFAULT");
+    outline-offset: 2px;
+  }
+  /* Tailwind's default placeholder gray is below 4.5:1 on paper-warm. */
+  ::placeholder {
+    color: theme("colors.ink.DEFAULT / 60%");
+  }
+  /* <main> only receives focus programmatically via the skip link. */
+  main:focus {
+    outline: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 /* react-day-picker monochrome theming */

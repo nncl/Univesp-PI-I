@@ -45,12 +45,16 @@ export default async function PortfolioDetail({ params }: Params) {
               <div className="flex gap-4 pt-4">
                 <Link
                   href="/agenda-orcamento"
+                  data-track-action="cta_click"
+                  data-track-description="quero_algo_assim"
                   className="border border-ink bg-ink px-6 py-3 text-sm uppercase tracking-widest text-paper transition hover:bg-paper hover:text-ink"
                 >
                   Quero algo assim
                 </Link>
                 <Link
                   href="/portfolio"
+                  data-track-action="cta_click"
+                  data-track-description="voltar"
                   className="border border-ink px-6 py-3 text-sm uppercase tracking-widest transition hover:bg-ink hover:text-paper"
                 >
                   ← Voltar

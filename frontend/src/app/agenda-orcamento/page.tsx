@@ -6,6 +6,12 @@ import Footer from "@/components/Footer";
 import DateTimePicker from "@/components/DateTimePicker";
 import { api, ApiError } from "@/lib/api";
 import { formatPhone, isValidBrPhone } from "@/lib/format";
+import { trackInteraction } from "@/lib/analytics";
+
+// Somente erro é trackeado
+function trackBookingError(kind: string) {
+  trackInteraction({ action: "booking_error", description: kind, step: 3 });
+}
 
 export default function AgendaPage() {
   const [name, setName] = useState("");
@@ -21,20 +27,25 @@ export default function AgendaPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
+    trackInteraction({ action: "booking_submit", step: 3 });
 
     if (!name.trim() || !description.trim() || !phone.trim()) {
+      trackBookingError("missing_fields");
       setError("Preencha nome, WhatsApp e descrição.");
       return;
     }
     if (!isValidBrPhone(phone)) {
+      trackBookingError("invalid_phone");
       setError("Telefone inválido. Use o formato (DD) 9XXXX-XXXX.");
       return;
     }
     if (!when) {
+      trackBookingError("missing_date");
       setError("Escolha uma data e horário.");
       return;
     }
     if (when <= new Date()) {
+      trackBookingError("past_date");
       setError("A data/hora escolhida deve ser no futuro.");
       return;
     }
@@ -49,8 +60,10 @@ export default function AgendaPage() {
         suggested_date: when.toISOString(),
         email: email.trim() || undefined,
       });
+      trackInteraction({ action: "booking_success", step: 4 });
       setSuccessMessage(result.message);
     } catch (err) {
+      trackBookingError("api_error");
       if (err instanceof ApiError) {
         setError(err.message);
       } else {

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { trackInteraction } from "@/lib/analytics";
 
 const links = [
   { href: "/", label: "Início" },
@@ -44,7 +45,12 @@ export default function Header() {
   return (
     <header className="border-b border-ink/10 bg-paper">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
-        <Link href="/" className="font-serif text-2xl tracking-wide">
+        <Link
+          href="/"
+          data-track-action="nav_click"
+          data-track-description="logo"
+          className="font-serif text-2xl tracking-wide"
+        >
           Yara Oliveira
         </Link>
         <nav
@@ -56,6 +62,8 @@ export default function Header() {
               key={l.href}
               href={l.href}
               aria-current={isActive(pathname, l.href) ? "page" : undefined}
+              data-track-action="nav_click"
+              data-track-description={`${l.label} (desktop)`}
               className="hover:opacity-60 aria-[current=page]:underline aria-[current=page]:underline-offset-4"
             >
               {l.label}
@@ -67,7 +75,10 @@ export default function Header() {
           type="button"
           aria-expanded={open}
           aria-controls={MOBILE_MENU_ID}
-          onClick={() => setOpen((v) => !v)}
+          onClick={() => {
+            trackInteraction({ action: "menu_toggle", description: open ? "close" : "open" });
+            setOpen((v) => !v);
+          }}
           className="border border-ink px-3 py-2 text-xs uppercase tracking-widest md:hidden"
         >
           Menu
@@ -85,6 +96,8 @@ export default function Header() {
               <Link
                 href={l.href}
                 aria-current={isActive(pathname, l.href) ? "page" : undefined}
+                data-track-action="nav_click"
+                data-track-description={`${l.label} (mobile)`}
                 className="block py-3 aria-[current=page]:underline aria-[current=page]:underline-offset-4"
               >
                 {l.label}

@@ -5,6 +5,7 @@ import { DayPicker } from "react-day-picker";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import "react-day-picker/dist/style.css";
+import { trackInteraction } from "@/lib/analytics";
 
 const SLOT_START_HOUR = 9;
 const SLOT_END_HOUR = 19;
@@ -64,6 +65,13 @@ export default function DateTimePicker({ value, onChange }: Props) {
           labels={dayPickerLabels}
           selected={day}
           onSelect={(d) => {
+            if (d) {
+              trackInteraction({
+                action: "booking_date_select",
+                description: format(d, "EEEE", { locale: ptBR }),
+                step: 1,
+              });
+            }
             setDay(d);
             onChange(null);
           }}
@@ -98,7 +106,14 @@ export default function DateTimePicker({ value, onChange }: Props) {
                     key={slot.toISOString()}
                     type="button"
                     aria-pressed={Boolean(selected)}
-                    onClick={() => onChange(slot)}
+                    onClick={() => {
+                      trackInteraction({
+                        action: "booking_time_select",
+                        description: fmtTime(slot),
+                        step: 2,
+                      });
+                      onChange(slot);
+                    }}
                     className={`border px-3 py-2 text-sm tracking-wide transition ${
                       selected
                         ? "border-ink bg-ink text-paper"

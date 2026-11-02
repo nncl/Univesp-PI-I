@@ -9,10 +9,11 @@
     "lint": "next lint",
     "cy:open": "cypress open",
     "test:a11y": "cypress run --spec \"cypress/e2e/a11y/**/*.cy.ts\"",
-    "test:a11y:ci": "start-server-and-test start http://localhost:3000 test:a11y"
+    "test:a11y:ci": "start-server-and-test start http://localhost:3000 test:a11y",
+    "test:analytics": "cypress run --spec \"cypress/e2e/analytics/**/*.cy.ts\"",
+    "test:analytics:ci": "start-server-and-test start http://localhost:3000 test:analytics"
   },
   "dependencies": {
-    "@next/third-parties": "^14.2.15",
     "date-fns": "3.6.0",
     "next": "14.2.15",
     "react": "18.3.1",

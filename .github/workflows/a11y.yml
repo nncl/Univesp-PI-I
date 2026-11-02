@@ -47,6 +47,7 @@ jobs:
       CYPRESS_adminUsername: yara
       CYPRESS_adminPassword: ci-a11y-password
       CYPRESS_apiUrl: http://localhost:8000/api
+      NEXT_PUBLIC_GA_MEASUREMENT_ID: G-CYPRESS000
 
     steps:
       - uses: actions/checkout@v4
@@ -121,6 +122,10 @@ jobs:
       - name: Run accessibility tests
         working-directory: frontend
         run: npm run test:a11y:ci
+
+      - name: Run analytics tests
+        working-directory: frontend
+        run: npm run test:analytics:ci
 
       - name: Upload Cypress screenshots
         if: failure()

@@ -9,6 +9,7 @@ Comandos e fluxos do dia a dia. Para a visão geral do projeto, veja o [README](
 - [Dados de exemplo (seed)](#dados-de-exemplo-seed)
 - [Logs e shell](#logs-e-shell)
 - [Testes de acessibilidade (Cypress + axe)](#testes-de-acessibilidade-cypress--axe)
+- [Google Analytics (eventos)](#google-analytics-eventos)
 - [Produção](#produção)
 - [Variáveis de ambiente](#variáveis-de-ambiente)
 
@@ -136,6 +137,54 @@ Em caso de falha, os screenshots do Cypress ficam disponíveis como artefato `cy
 - Foco visível global via `:focus-visible` em `globals.css` — não use `outline-none` em controles.
 - Texto secundário no mínimo `text-ink/60` (contraste ≥ 4.5:1 sobre `paper`/`paper-warm`).
 
+## Google Analytics (eventos)
+
+O GA4 é carregado por `frontend/src/components/Analytics.tsx` (no layout raiz) e só fica ativo quando `NEXT_PUBLIC_GA_MEASUREMENT_ID` está definida no **build**. A área `/admin` não é rastreada.
+
+### Eventos
+
+| Evento             | Parâmetros                                        | Quando |
+| ------------------ | ------------------------------------------------- | ------ |
+| `page_view`        | `page_path`, `page_title` (+ `page_location`)     | Carga inicial e toda troca de rota (enviado manualmente — `send_page_view: false`). |
+| `user_interaction` | `action`, `page_path`, `description`, `step`      | Cliques e etapas de UI, listados abaixo. |
+
+| `action`               | `description`                                                         | `step` |
+| ---------------------- | --------------------------------------------------------------------- | ------ |
+| `nav_click`            | rótulo do link + `(desktop)`/`(mobile)`, ou `logo`                    | –      |
+| `menu_toggle`          | `open` / `close`                                                      | –      |
+| `cta_click`            | `hero_agendar`, `hero_portfolio`, `ver_todos`, `footer_cta`, `quero_algo_assim`, `voltar`, `voltar_inicio` | – |
+| `portfolio_item_click` | título do trabalho                                                    | –      |
+| `outbound_click`       | `instagram`                                                           | –      |
+| `booking_date_select`  | dia da semana                                                         | `1`    |
+| `booking_time_select`  | horário (`HH:mm`)                                                     | `2`    |
+| `booking_submit`       | –                                                                     | `3`    |
+| `booking_error`        | `missing_fields`, `invalid_phone`, `missing_date`, `past_date`, `api_error` | `3` |
+| `booking_success`      | –                                                                     | `4`    |
+
+Para rastrear um link novo em um server component, basta adicionar `data-track-action` (e opcionalmente `data-track-description` / `data-track-step`). Em client components, chame `trackInteraction()` de `@/lib/analytics`. **Nunca envie o conteúdo do formulário** (nome, telefone, e-mail, descrição) — LGPD.
+
+### Configuração no GA (uma vez)
+
+1. **Admin → Fluxos de dados → (web) → Medição otimizada → Visualizações de página → Configurações avançadas**: desmarque *"Mudanças de página com base em eventos do histórico de navegação"*. Sem isso, cada navegação gera um `page_view` duplicado.
+2. **Admin → Definições personalizadas → Criar dimensão personalizada**, escopo **Evento**, uma para cada parâmetro: `page_path`, `action`, `description`, `step`. (`page_title` já é a dimensão nativa *Título da página*.) As dimensões só valem para dados coletados **depois** de criadas e levam até 24–48 h para aparecer no Explorar.
+3. Para validar: rode o frontend em dev com `NEXT_PUBLIC_GA_MEASUREMENT_ID` definida — os eventos chegam com `debug_mode` em **Admin → DebugView**.
+
+### No Explorar
+
+- **Forma livre**: dimensões *Nome do evento*, `page_path`, `action`, `description`, `step`; métrica *Contagem de eventos*; filtro `Nome do evento = user_interaction`.
+- **Funil**: etapas `user_interaction` com `step` = `1`, `2`, `3` e `4` (ou por `action`: `booking_date_select` → `booking_time_select` → `booking_submit` → `booking_success`).
+
+### Testes
+
+`frontend/cypress/e2e/analytics/events.cy.ts` confere os eventos em `window.dataLayer` (o `gtag.js` real é bloqueado em todos os testes). O build precisa ter um ID, mesmo falso:
+
+```bash
+NEXT_PUBLIC_GA_MEASUREMENT_ID=G-CYPRESS000 NEXT_PUBLIC_API_BASE_URL=http://localhost:8000/api npm run build
+INTERNAL_API_BASE_URL=http://localhost:8000/api npm run test:analytics:ci
+```
+
+No CI, o `a11y.yml` usa o ID falso `G-CYPRESS000` e roda essa suíte logo depois da de acessibilidade.
+
 ## Produção
 
 A configuração de produção sobrescreve a de desenvolvimento via um segundo arquivo de compose (`docker-compose.prod.yml`):
@@ -185,3 +234,4 @@ Resumo:
 | `DJANGO_ADMIN_*`             | comando `create_admin`          | Cria/atualiza o superusuário no boot                |
 | `NEXT_PUBLIC_API_BASE_URL`   | frontend (browser)              | URL pública da API                                  |
 | `INTERNAL_API_BASE_URL`      | frontend (server components)    | URL da API dentro da rede docker                    |
+| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | frontend (build)             | ID do GA4; sem ela, nenhum evento é enviado         |

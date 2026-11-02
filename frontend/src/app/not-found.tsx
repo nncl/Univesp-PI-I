@@ -14,6 +14,8 @@ export default function NotFound() {
         </p>
         <Link
           href="/"
+          data-track-action="cta_click"
+          data-track-description="voltar_inicio"
           className="mt-8 inline-block border border-ink bg-ink px-8 py-3 text-sm uppercase tracking-widest text-paper transition hover:bg-paper hover:text-ink"
         >
           Voltar ao início

@@ -35,12 +35,16 @@ export default async function HomePage() {
               <div className="flex gap-4">
                 <Link
                   href="/agenda-orcamento"
+                  data-track-action="cta_click"
+                  data-track-description="hero_agendar"
                   className="border border-ink bg-ink px-6 py-3 text-sm uppercase tracking-widest text-paper transition hover:bg-paper hover:text-ink"
                 >
                   Agendar orçamento
                 </Link>
                 <Link
                   href="/portfolio"
+                  data-track-action="cta_click"
+                  data-track-description="hero_portfolio"
                   className="border border-ink px-6 py-3 text-sm uppercase tracking-widest transition hover:bg-ink hover:text-paper"
                 >
                   Ver portfólio
@@ -65,6 +69,8 @@ export default async function HomePage() {
               <h2 className="font-serif text-3xl md:text-4xl">Trabalhos recentes</h2>
               <Link
                 href="/portfolio"
+                data-track-action="cta_click"
+                data-track-description="ver_todos"
                 className="text-xs uppercase tracking-widest hover:opacity-60"
               >
                 Ver todos →
@@ -78,6 +84,8 @@ export default async function HomePage() {
                   <Link
                     key={item.id}
                     href={`/portfolio/${item.id}`}
+                    data-track-action="portfolio_item_click"
+                    data-track-description={item.title}
                     className="group block aspect-[4/5] overflow-hidden border border-ink/10"
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -105,6 +113,8 @@ export default async function HomePage() {
             </p>
             <Link
               href="/agenda-orcamento"
+              data-track-action="cta_click"
+              data-track-description="footer_cta"
               className="mt-8 inline-block border border-ink bg-ink px-8 py-3 text-sm uppercase tracking-widest text-paper transition hover:bg-paper hover:text-ink"
             >
               Solicitar orçamento

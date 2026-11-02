@@ -8,6 +8,8 @@ export default function Footer() {
           href="https://www.instagram.com/yaa_tattoo"
           target="_blank"
           rel="noopener noreferrer"
+          data-track-action="outbound_click"
+          data-track-description="instagram"
           aria-label="Instagram da Yara — @yaa_tattoo (abre em nova aba)"
           className="inline-flex items-center gap-2 transition hover:text-ink"
         >

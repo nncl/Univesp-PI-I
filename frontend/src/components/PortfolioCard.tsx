@@ -5,6 +5,8 @@ export default function PortfolioCard({ item }: { item: PortfolioItem }) {
   return (
     <Link
       href={`/portfolio/${item.id}`}
+      data-track-action="portfolio_item_click"
+      data-track-description={item.title}
       className="group block overflow-hidden border border-ink/10 bg-paper-warm"
     >
       <div className="aspect-[4/5] w-full overflow-hidden bg-ink/5">

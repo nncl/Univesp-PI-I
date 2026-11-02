@@ -54,3 +54,9 @@ override.tf.json
 *.tfvars
 *.tfvars.json
 !*.tfvars.example
+
+# Cypress
+frontend/cypress/screenshots/
+frontend/cypress/videos/
+frontend/cypress/downloads/
+*.tsbuildinfo

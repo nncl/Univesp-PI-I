@@ -41,31 +41,43 @@ export default function PortfolioForm({ initial, submitLabel = "Salvar", onSubmi
   return (
     <form onSubmit={handleSubmit} className="max-w-2xl space-y-6">
       <div className="space-y-1">
-        <label className="text-xs uppercase tracking-widest text-ink/60">Título</label>
+        <label className="text-xs uppercase tracking-widest text-ink/60" htmlFor="portfolio-titulo">
+          Título
+        </label>
         <input
+          id="portfolio-titulo"
+          aria-required="true"
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full border border-ink/20 bg-paper-warm px-3 py-2 outline-none focus:border-ink"
+          className="w-full border border-ink/20 bg-paper-warm px-3 py-2 focus:border-ink"
         />
       </div>
       <div className="space-y-1">
-        <label className="text-xs uppercase tracking-widest text-ink/60">Descrição</label>
+        <label className="text-xs uppercase tracking-widest text-ink/60" htmlFor="portfolio-descricao">
+          Descrição
+        </label>
         <textarea
+          id="portfolio-descricao"
+          aria-required="true"
           rows={5}
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full border border-ink/20 bg-paper-warm px-3 py-2 outline-none focus:border-ink"
+          className="w-full border border-ink/20 bg-paper-warm px-3 py-2 focus:border-ink"
         />
       </div>
       <div className="space-y-1">
-        <label className="text-xs uppercase tracking-widest text-ink/60">URL da imagem</label>
+        <label className="text-xs uppercase tracking-widest text-ink/60" htmlFor="portfolio-imagem">
+          URL da imagem
+        </label>
         <input
+          id="portfolio-imagem"
+          aria-required="true"
           type="url"
           value={imageUrl}
           onChange={(e) => setImageUrl(e.target.value)}
           placeholder="https://..."
-          className="w-full border border-ink/20 bg-paper-warm px-3 py-2 outline-none focus:border-ink"
+          className="w-full border border-ink/20 bg-paper-warm px-3 py-2 focus:border-ink"
         />
         {imageUrl && (
           <div className="mt-2 aspect-[4/5] max-w-xs overflow-hidden border border-ink/10">
@@ -75,7 +87,11 @@ export default function PortfolioForm({ initial, submitLabel = "Salvar", onSubmi
         )}
       </div>
 
-      {error && <p className="text-sm text-red-700">{error}</p>}
+      {error && (
+        <p role="alert" className="text-sm text-red-700">
+          {error}
+        </p>
+      )}
 
       <button
         type="submit"

@@ -8,6 +8,7 @@ Comandos e fluxos do dia a dia. Para a visão geral do projeto, veja o [README](
 - [Modificando os models (migrações)](#modificando-os-models-migrações)
 - [Dados de exemplo (seed)](#dados-de-exemplo-seed)
 - [Logs e shell](#logs-e-shell)
+- [Testes de acessibilidade (Cypress + axe)](#testes-de-acessibilidade-cypress--axe)
 - [Produção](#produção)
 - [Variáveis de ambiente](#variáveis-de-ambiente)
 
@@ -87,6 +88,53 @@ docker compose exec backend bash        # shell no container
 docker compose exec backend python manage.py shell   # shell do Django
 docker compose exec db mysql -u root -p tattoo       # cliente MySQL
 ```
+
+## Testes de acessibilidade (Cypress + axe)
+
+O frontend tem uma suíte em `frontend/cypress/e2e/a11y/` que valida o site contra o **WCAG 2.1 nível AA** usando [axe-core](https://github.com/dequelabs/axe-core) via `cypress-axe`:
+
+| Spec                 | O que cobre |
+| -------------------- | ----------- |
+| `public.cy.ts`       | Todas as páginas públicas (incl. detalhe do portfólio e 404), em desktop e mobile. |
+| `interaction.cy.ts`  | Link "Pular para o conteúdo", menu mobile (`aria-expanded`, Esc), rótulos dos campos, erros anunciados (`role="alert"`) e horários com `aria-pressed`. |
+| `admin.cy.ts`        | Login (inclusive com erro) e todas as telas do admin, autenticado com o superusuário do seed. |
+
+Os testes precisam do **backend rodando com seed**, porque as páginas públicas buscam dados no servidor (RSC) — não dá para mockar com `cy.intercept`.
+
+### Rodando localmente
+
+```bash
+# 1. backend + banco (a partir de infra/)
+docker compose up -d db backend
+
+# 2. build de produção do frontend + testes (a partir de frontend/)
+npm install
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8000/api npm run build
+INTERNAL_API_BASE_URL=http://localhost:8000/api npm run test:a11y:ci
+```
+
+`test:a11y:ci` sobe o `next start`, espera a porta 3000 e roda o `cypress run`. Se o frontend já estiver no ar (ex.: `docker compose up` completo), rode só `npm run test:a11y`, ou `npm run cy:open` para a interface interativa.
+
+As credenciais do admin vêm de `cypress.config.ts` (padrão do `.env.example`: `yara` / `changeme`) e podem ser sobrescritas com `CYPRESS_adminUsername`, `CYPRESS_adminPassword`, `CYPRESS_apiUrl` e `CYPRESS_BASE_URL`.
+
+Quando uma regra falha, o terminal mostra uma tabela com o id da regra do axe, o impacto e os seletores afetados — o link para a documentação de cada regra (Deque University) aparece no log do Cypress.
+
+### No CI
+
+O workflow `.github/workflows/a11y.yml` roda a mesma suíte (MySQL + gunicorn + `next build`/`next start`):
+
+- em todo **pull request para `main`**;
+- em todo **push para `main`**, chamado pelo `deploy.yml` — os jobs de deploy dependem dele (`needs: [test, a11y]`), então **uma violação de acessibilidade bloqueia o deploy**.
+
+Em caso de falha, os screenshots do Cypress ficam disponíveis como artefato `cypress-screenshots` na execução do workflow.
+
+### Boas práticas já adotadas
+
+- Todo `<label>` tem `htmlFor` apontando para o `id` do campo; campos obrigatórios usam `aria-required`.
+- Mensagens de erro usam `role="alert"`; estados de carregamento, `role="status"`.
+- Todo `<main>` tem `id="conteudo" tabIndex={-1}` (alvo do link "Pular para o conteúdo" no layout raiz).
+- Foco visível global via `:focus-visible` em `globals.css` — não use `outline-none` em controles.
+- Texto secundário no mínimo `text-ink/60` (contraste ≥ 4.5:1 sobre `paper`/`paper-warm`).
 
 ## Produção
 

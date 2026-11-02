@@ -6,3 +6,5 @@ npm-debug.log
 .env.local
 .dockerignore
 Dockerfile
+cypress
+cypress.config.ts

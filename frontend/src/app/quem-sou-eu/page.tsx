@@ -5,7 +5,7 @@ export default function AboutPage() {
   return (
     <>
       <Header />
-      <main className="mx-auto max-w-6xl px-6 py-20">
+      <main id="conteudo" tabIndex={-1} className="mx-auto max-w-6xl px-6 py-20">
         <header className="mb-12 max-w-2xl space-y-3">
           <p className="text-xs uppercase tracking-widest text-ink/60">Sobre</p>
           <h1 className="font-serif text-4xl md:text-5xl">Quem sou eu</h1>

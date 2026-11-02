@@ -34,13 +34,14 @@ export default function AdminNav() {
         <Link href="/admin" className="font-serif text-xl">
           Yara · Admin
         </Link>
-        <nav className="flex items-center gap-6 text-sm uppercase tracking-widest">
+        <nav aria-label="Administração" className="flex items-center gap-6 text-sm uppercase tracking-widest">
           {links.map((l) => {
             const active = pathname === l.href || pathname?.startsWith(`${l.href}/`);
             return (
               <Link
                 key={l.href}
                 href={l.href}
+                aria-current={active ? "page" : undefined}
                 className={active ? "underline underline-offset-4" : "hover:opacity-60"}
               >
                 {l.label}

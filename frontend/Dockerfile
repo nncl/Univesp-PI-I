@@ -1,6 +1,8 @@
 # --- deps ---
 FROM node:20-alpine AS deps
 WORKDIR /app
+# Cypress is a devDependency for the a11y tests only; skip its ~500MB binary.
+ENV CYPRESS_INSTALL_BINARY=0
 COPY package.json package-lock.json* ./
 RUN npm install --no-audit --no-fund
 

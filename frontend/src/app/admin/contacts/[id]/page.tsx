@@ -22,7 +22,7 @@ export default function AdminContactDetail({ params }: { params: { id: string } 
   return (
     <AdminGuard>
       <AdminNav />
-      <main className="mx-auto max-w-3xl px-6 py-12">
+      <main id="conteudo" tabIndex={-1} className="mx-auto max-w-3xl px-6 py-12">
         <Link
           href="/admin/contacts"
           className="mb-6 inline-block text-xs uppercase tracking-widest hover:opacity-60"
@@ -30,8 +30,8 @@ export default function AdminContactDetail({ params }: { params: { id: string } 
           ← Voltar
         </Link>
 
-        {error && <p className="text-red-700">{error}</p>}
-        {!c && !error && <p className="text-ink/60">Carregando…</p>}
+        {error && <p role="alert" className="text-red-700">{error}</p>}
+        {!c && !error && <p role="status" className="text-ink/60">Carregando…</p>}
 
         {c && (
           <article className="space-y-8 border border-ink/10 bg-paper-warm p-8">

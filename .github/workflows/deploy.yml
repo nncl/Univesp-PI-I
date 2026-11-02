@@ -81,9 +81,13 @@ jobs:
           python manage.py check
           python manage.py test --noinput
 
+  a11y:
+    name: Accessibility
+    uses: ./.github/workflows/a11y.yml
+
   deploy-backend:
     name: Build & deploy backend
-    needs: test
+    needs: [test, a11y]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -128,7 +132,7 @@ jobs:
 
   deploy-frontend:
     name: Build & deploy frontend
-    needs: test
+    needs: [test, a11y]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
